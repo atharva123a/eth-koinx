@@ -10,6 +10,9 @@ const morgan = require("morgan");
 // database
 const connectDB = require("./db/connect");
 
+// routers:
+const accountController = require('./routes/accountRoutes');
+
 // middleware:
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -17,6 +20,8 @@ const notFoundMiddleware = require("./middleware/not-found");
 app.use(express.json());
 app.use(morgan("tiny"));
 
+// using router:
+app.use('/account', accountController);
 
 // using middlewares:
 app.use(notFoundMiddleware);
