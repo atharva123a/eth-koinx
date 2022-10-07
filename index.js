@@ -13,6 +13,9 @@ const connectDB = require("./db/connect");
 // routers:
 const accountController = require('./routes/accountRoutes');
 
+// utils:
+const { convertEth } = require('./utils/utility-functions');
+
 // middleware:
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
@@ -31,6 +34,10 @@ const port = process.env.PORT || 3000;
 
 const start = async (req, res) => {
     await connectDB(process.env.MONGO_URI);
+
+    setInterval((async () => {
+        await convertEth();
+    }), 1000 * 60 * 10) // every 10 minutes
     app.listen(port, (err, res) => {
         if (err) {
             console.log(err);
