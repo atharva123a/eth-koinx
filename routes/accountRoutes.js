@@ -4,7 +4,7 @@ const router = express.Router();
 
 const { getAllTransactions, getAccountBalance } = require('../controllers/accountController');
 
-router.post('/', getAccountBalance)
-router.get('/:id', getAllTransactions)
+router.get('/:address', getAccountBalance)
+router.get('/transactions/:id', getAllTransactions)
 
 module.exports = router;
