@@ -68,6 +68,9 @@ const AccountSchema = new mongoose.Schema({
             functionName: {
                 type: String
             },
+            ethPrice: {
+                type: String
+            }
         }]
     },
     balance: {

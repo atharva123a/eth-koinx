@@ -2,6 +2,10 @@ const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require('../errors')
 const Account = require('../models/Account');
 const Convert = require("../models/Convert");
+const moment = require('moment');
+
+const CoinGecko = require('coingecko-api');
+const CoinGeckoClient = new CoinGecko();
 
 const api = require('etherscan-api').init(process.env.API_KEY);
 
@@ -62,7 +66,21 @@ const getAllTransactions = async (req, res) => {
 
     const { result } = txlist;
 
-    account.transactions = result;
+    const updatedResult = await Promise.all(result.map(async (result) => {
+        let { timeStamp } = result;
+
+        const formatted = moment.utc(timeStamp * 1000).format('DD-MM-YYYY');
+        console.log(formatted, 'formattedDate')
+        // let data = await CoinGeckoClient.coins.fetchHistory('ethereum', { date: formatted, localization: false })
+
+        // let convertedPrice = data.data.market_data.current_price.inr
+
+        // result.ethPrice = convertedPrice;
+
+        // return result;
+    }))
+
+    account.transactions = updatedResult;
 
     await account.save()
 
