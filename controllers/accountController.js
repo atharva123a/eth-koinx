@@ -1,8 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
-const Web3 = require("web3");
 const { BadRequestError, NotFoundError } = require('../errors')
 const Account = require('../models/Account');
-const { getRequest } = require('etherscan-api');
 const Convert = require("../models/Convert");
 
 const api = require('etherscan-api').init(process.env.API_KEY);
